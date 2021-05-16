@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+     
+   
+   
+   
+   
+   
+     <bean id="dataServiceObj" class="com.demo.services.DataService">
+    </bean>
+     <bean id="callingServiceObj" class="com.demo.services.CallingService">
+    </bean>
+     <bean id="helloTuneServiceObj" class="com.demo.services.HelloTuneService">
+    </bean>
+    
+     <bean id="serviceBundleObject1" class="com.demo.services.ServiceBundle">
+     	<constructor-arg name ="callingservice" ref="callingServiceObj"></constructor-arg>
+     	<constructor-arg name ="dataService" ref="dataServiceObj"></constructor-arg>
+     	<constructor-arg name ="helloTuneService" ref="helloTuneServiceObj"></constructor-arg>
+    </bean>
+    <bean id="serviceBundleObject2" class="com.demo.services.ServiceBundle">
+     	<constructor-arg name ="callingservice" ref="callingServiceObj"></constructor-arg>
+     	<constructor-arg name ="dataService" ref="dataServiceObj"></constructor-arg>
+     	<constructor-arg name ="helloTuneService" ref="helloTuneServiceObj"></constructor-arg>
+    </bean>
+    
+    
+    
+     <bean id="airtelObj" class="com.demo.serviceProvider.Airtel">
+    	<property ref="serviceBundleObject1" name="serviceBundle"/>
+    </bean>
+    
+    <bean id="jioObj" class="com.demo.serviceProvider.Jio">
+    	<property ref="serviceBundleObject2" name="serviceBundle"/>
+    </bean>
+    
+    
+    <bean id="user1" class="com.demo.main.User">
+    	<property ref="airtelObj" name="serviceProvider"/>
+    </bean>
+    
+     <bean id="user2" class="com.demo.main.User">
+    	<property ref="jioObj" name="serviceProvider"/>
+    </bean>
+    
+</beans>
